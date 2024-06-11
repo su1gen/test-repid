@@ -1,17 +1,21 @@
 import { LoggedUserProps, LoginResponse } from '@/app/types';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useRef } from 'react';
 import axiosInstance from '@/helpers/axiosInstance';
 import { apiRoutes } from '@/app/routes';
 import Cookies from 'js-cookie';
 import { useUserContext } from '@/context/UserContextProvider';
+import { useOnClickOutside } from 'usehooks-ts'
 
 export function LoggedUserBlock({ id, name }: LoggedUserProps) {
   const { user, setUser } = useUserContext()
   const [isPopupOpened, setIsPopupOpened] = useState(false)
+  const ref = useRef(null)
 
   const handleProfileButtonClick = () => {
     setIsPopupOpened(!isPopupOpened)
   }
+
+  useOnClickOutside(ref, handleProfileButtonClick)
 
   const handleLogoutEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -38,7 +42,7 @@ export function LoggedUserBlock({ id, name }: LoggedUserProps) {
         </button>
       </div>
       {isPopupOpened &&
-          <div className="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0">
+          <div ref={ref} className="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0">
               <div className="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
                 {/*<a*/}
                 {/*  className="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"*/}
