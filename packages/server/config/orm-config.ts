@@ -20,6 +20,7 @@ export class OrmConfig implements TypeOrmOptionsFactory {
       entities: [User, PasswordResets],
       synchronize: true,
       logging: true,
+      ssl: true,
     };
   }
 }
