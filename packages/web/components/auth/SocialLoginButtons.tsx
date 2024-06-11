@@ -11,6 +11,7 @@ import { TLoginButton, TLoginButtonSize } from 'react-telegram-auth';
 export default function SocialLoginButtons() {
   let { user, setUser } = useUserContext()
   let router = useRouter()
+  let googleLoginRedirectURL = `${process.env.NEXT_PUBLIC_NEXT_API_URL}/login`
 
   const handleLoginResponse = (responseData: LoginResponse) => {
     Cookies.set(process.env.NEXT_PUBLIC_JWT_COOKIE_NAME!, responseData.accessToken)
@@ -23,7 +24,7 @@ export default function SocialLoginButtons() {
     <div className="login-modal__social-wrapper flex flex-col gap-2">
       <div className="flex items-center justify-center">
         <GoogleLogin
-          login_uri="http://localhost/api/login"
+          login_uri={googleLoginRedirectURL}
           shape="pill"
           ux_mode="redirect"
           onSuccess={async credentialResponse => {

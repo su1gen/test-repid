@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   const formData = await request.formData()
   const token = formData.get('credential')
-  const response = await axios.post('http://server:3000/auth/login-google', {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_NEST_API_URL}/auth/login-google`, {
     token
   })
 
